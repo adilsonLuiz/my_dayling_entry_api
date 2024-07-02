@@ -96,4 +96,4 @@ def show_entry_id(new_id: str):
     
     return jsonify({
                     'entryID': new_id
-                    })
+                    }), 200
