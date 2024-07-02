@@ -7,7 +7,11 @@ from flask_openapi3 import Info, Tag
 
 class GlobalApplicationConfigure(GlobalDatabaseConfiguration):
     """
-        Many configuration to application
+        Root class to organize all importantes settings, like tags to swagger docs, and
+        anothers variables importantes to application can be add here..
+        
+        This class is derived from GlobalDatabaseConfiguration, so here, we have, application settings from database,
+        and application settings from application mainlines operations
     """
 
     def __init__(self):
