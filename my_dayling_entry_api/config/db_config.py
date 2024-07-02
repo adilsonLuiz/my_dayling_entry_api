@@ -3,8 +3,6 @@
 
 class GlobalDatabaseConfiguration():
     """Application global Database configuration
-    Here, we can have any attribute from databases configuration, like name, path, controls legth fields
-    and etc...
     """
     
     def __init__(self) -> None:

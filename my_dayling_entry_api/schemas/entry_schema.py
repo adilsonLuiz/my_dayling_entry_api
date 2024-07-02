@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from typing import List, Optional
 from model.entry import Entry
-from config import APP_GLOBAL_CONFIG
+from config import application_settings
 from flask import jsonify
 
 
@@ -14,7 +14,7 @@ class EntrySchema(BaseModel):
         This can be used in parameter in main app.py to represent
         the parameters has expeted in function
     """
-    entryID: str = APP_GLOBAL_CONFIG.ENTRY_ID_EXAMPLE
+    entryID: str = application_settings.ENTRY_ID_EXAMPLE
     title: str = 'Title dayling entry SCHEMA'
     content: str = 'My day today was realy cool SCHEMA'
     created: str = '1999-09-29 09:45:54.547831'
@@ -25,7 +25,7 @@ class GetNewIDToEntrySchema(BaseModel):
         Difine how the ID to new Entry needs return
     
     """
-    new_entry_id: str = APP_GLOBAL_CONFIG.ENTRY_ID_EXAMPLE
+    new_entry_id: str = application_settings.ENTRY_ID_EXAMPLE
 
 
 class ListingEntrysSchema(BaseModel):
@@ -39,7 +39,7 @@ class EntrySearchSchema(BaseModel):
     """Define how product is showing.
     """
     
-    entryID: str = APP_GLOBAL_CONFIG.ENTRY_ID_EXAMPLE
+    entryID: str = application_settings.ENTRY_ID_EXAMPLE
 
 
 class EntryDeleteSchema(BaseModel):

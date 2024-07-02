@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from typing import List, Optional
 from model.entry import Entry
-from config import APP_GLOBAL_CONFIG
+from config import application_settings
 from flask import jsonify
 
 
@@ -9,4 +9,4 @@ from flask import jsonify
 class AboutInformationSchema(BaseModel):
     """define how about Information is defined
     """
-    api_version: str = APP_GLOBAL_CONFIG.API_VERSION
+    api_version: str = application_settings.API_VERSION
