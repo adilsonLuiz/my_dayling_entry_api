@@ -1,0 +1,100 @@
+[2024-07-02 20:28:38,762] INFO _log() L97   [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.20:5000 - call_trace=C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\werkzeug\_internal.py L97  
+[2024-07-02 20:28:38,763] INFO _log() L97   [33mPress CTRL+C to quit[0m - call_trace=C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\werkzeug\_internal.py L97  
+[2024-07-02 20:28:47,469] ERROR log_exception() L838  Exception on /generate_new_entry_id [GET] - call_trace=C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\flask\app.py L838 
+Traceback (most recent call last):
+  File "C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1810, in _execute_context
+    context = constructor(
+              ^^^^^^^^^^^^
+  File "C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 1020, in _init_compiled
+    self.cursor = self.create_cursor()
+                  ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 1391, in create_cursor
+    return self.create_default_cursor()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 1394, in create_default_cursor
+    return self._dbapi_connection.cursor()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1133, in cursor
+    return self.dbapi_connection.cursor(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.ProgrammingError: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6752 and this is thread id 4156.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\flask_cors\extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\flask_openapi3\scaffold.py", line 117, in view_func
+    response = func(**func_kwargs)
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\my_dayling_entry_api\app.py", line 79, in generate_new_entry_id
+    new_entry_id = ENTRY_DB_CONNECTION.get_next_entry_id()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\my_dayling_entry_api\database\database.py", line 240, in get_next_entry_id
+    query_result = self.get_last_entry()
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\my_dayling_entry_api\database\database.py", line 169, in get_last_entry
+    last_record = self.session.query(Entry).order_by(Entry.id.desc()).first()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2824, in first
+    return self.limit(1)._iter().first()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2916, in _iter
+    result = self.session.execute(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1717, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1710, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1577, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1816, in _execute_context
+    self._handle_dbapi_exception(
+  File "C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2134, in _handle_dbapi_exception
+    util.raise_(
+  File "C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\sqlalchemy\util\compat.py", line 211, in raise_
+    raise exception
+  File "C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1810, in _execute_context
+    context = constructor(
+              ^^^^^^^^^^^^
+  File "C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 1020, in _init_compiled
+    self.cursor = self.create_cursor()
+                  ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 1391, in create_cursor
+    return self.create_default_cursor()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 1394, in create_default_cursor
+    return self._dbapi_connection.cursor()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1133, in cursor
+    return self.dbapi_connection.cursor(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.ProgrammingError: (sqlite3.ProgrammingError) SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6752 and this is thread id 4156.
+[SQL: SELECT "Entry".id AS "Entry_id", "Entry"."entryID" AS "Entry_entryID", "Entry".title AS "Entry_title", "Entry".content AS "Entry_content", "Entry".created AS "Entry_created" 
+FROM "Entry" ORDER BY "Entry".id DESC
+ LIMIT ? OFFSET ?]
+[parameters: [{}]]
+(Background on this error at: https://sqlalche.me/e/14/f405)
+[2024-07-02 20:28:47,483] INFO _log() L97   192.168.1.20 - - [02/Jul/2024 20:28:47] "[35m[1mGET /generate_new_entry_id HTTP/1.1[0m" 500 - - call_trace=C:\Users\adilson\Documents\Programming\Python\FlaskProjects\MyDaylingEntry\my_dayling_entry_api\venv\Lib\site-packages\werkzeug\_internal.py L97  
