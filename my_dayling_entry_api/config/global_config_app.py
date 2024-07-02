@@ -1,11 +1,11 @@
 
-from .db_config import GlobalDatabaseConfiguration,  GlobalEntryDatabaseConfiguration
+from .db_config import GlobalDatabaseConfiguration
 from flask_openapi3 import Info, Tag
 
 
 
 
-class GlobalApplicationConfigure(GlobalEntryDatabaseConfiguration):
+class GlobalApplicationConfigure(GlobalDatabaseConfiguration):
     """
         Root class to organize all importantes settings, like tags to swagger docs, and
         anothers variables importantes to application can be add here..
@@ -19,14 +19,9 @@ class GlobalApplicationConfigure(GlobalEntryDatabaseConfiguration):
         super().__init__()
         # DEBUG CONFIGURATION
         self.DEBUG = True
-        self.CONFIGURATION_ENVIROMENTE_NAME = 'Global Configuration'
 
         # API Configuration
         self.API_VERSION = '0.0.2'
-        
-        # Set enviroment of Flask application Running
-        
-        self.ENVIROMENT = 'DEV' # Chose theese DEV-> Develoment, HM -> Homologation, PROD -> Production
 
 
         # Swagger DOC Configuration TAGS
@@ -41,47 +36,15 @@ class GlobalApplicationConfigure(GlobalEntryDatabaseConfiguration):
         
         # Swagger DOC Configuration INFOS
         self.INFO_INFORMATION_API = Info(title='My Entry Dayling API', version=self.API_VERSION)
-        
-        
-    def __str__(self) -> str:
-        return f'''\nENVIROMENT NAME: {self.ENVIROMENT}
-CONFIGURATION SET: {self.CONFIGURATION_ENVIROMENTE_NAME}
-DEBUG IS ENABLE: {self.DEBUG}
-                '''
+
+
+
 
 
 
 class DevelopementConfiguration(GlobalApplicationConfigure):
-    """Configuration Developement application ambient
-    """
+
     def __init__(self):
         super().__init__()
-        self.CONFIGURATION_ENVIROMENTE_NAME = 'Developement'
         self.DEBUG = True
 
-    def __str__(self) -> str:
-        return super().__str__()
-    
-    
-class HomologationConfiguration(GlobalApplicationConfigure):
-    """Configuration Homologation application ambient
-    """
-    def __init__(self):
-        super().__init__()
-        self.CONFIGURATION_ENVIROMENTE_NAME = 'Homologation'
-        self.DEBUG = True
-    
-    def __str__(self) -> str:
-        return super().__str__()
-        
-        
-class ProductionConfiguration(GlobalApplicationConfigure):
-    """Configuration Production application ambient
-    """
-    def __init__(self):
-        super().__init__()
-        self.CONFIGURATION_ENVIROMENTE_NAME = 'Production'
-        self.DEBUG = False
-    
-    def __str__(self) -> str:
-        return super().__str__()
