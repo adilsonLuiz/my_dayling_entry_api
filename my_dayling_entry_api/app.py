@@ -14,14 +14,15 @@ from flask_cors import CORS
 
 
 
-
 # Initilize API with the OpenAPI
 app = OpenAPI(__name__, info=APP_GLOBAL_CONFIG.INFO_INFORMATION_API)
 
+
 CORS(app) # Apply CORS settings in app.
 
-# Initialize database to make operations isoleted from the app.py
-#ENTRY_DB_CONNECTION = EntryDatabase()
+# Sett debug application based on global settings
+app.config['DEBUG'] = APP_GLOBAL_CONFIG.DEBUG
+
     
 ### APP ROUTES ###
 
@@ -109,7 +110,6 @@ def get_entry(query: EntrySearchSchema):
     return result
     
     
-
 @app.delete('/entry', tags=[APP_GLOBAL_CONFIG.TAG_ENTRY_DELETE],
          responses={'200': EntryDeleteSchema, '404': ErrorSchema})
 def delete_entry(query: EntrySearchSchema):

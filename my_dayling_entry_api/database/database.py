@@ -97,10 +97,10 @@ class EntryDatabase(Database):
         logger.debug('Entry Database Instanciate')
         
         # Frist create engine
-        self.engine = create_engine(self.SQLALCHEMY_DATABASE_URI)
+        self.engine = create_engine(self.DATABASE_ENTRY_URI)
 
-        if not os.path.exists(self.DB_PATH):
-            os.makedirs(self.DB_PATH)
+        if not os.path.exists(self.ROOT_DB_PATH):
+            os.makedirs(self.ROOT_DB_PATH)
 
         # Check if database exist
         if not database_exists(self.engine.url):
