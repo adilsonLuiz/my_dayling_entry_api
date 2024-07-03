@@ -89,6 +89,14 @@ def get_all_entrys():
 @app.get('/entry', tags=[APP_GLOBAL_CONFIG.TAG_ENTRY_SEARCH],
          responses={'200': EntrySearchSchema, '404': ErrorSchema})
 def get_entry(query: EntrySearchSchema):
+    """Get unique entryID in database
+
+    Args:
+        query (EntrySearchSchema): _description_
+
+    Returns:
+        _type_: _description_
+    """
     
     entry_id = query.entryID
     
@@ -100,7 +108,7 @@ def get_entry(query: EntrySearchSchema):
     
     
 @app.delete('/entry', tags=[APP_GLOBAL_CONFIG.TAG_ENTRY_DELETE],
-         responses={'200': EntryDeleteSchema, '404': ErrorSchema})
+         responses={'200': EntryDeleteSchema, '404': DeleteErrorSchema})
 def delete_entry(query: EntrySearchSchema):
     """Delete record in entry db
 

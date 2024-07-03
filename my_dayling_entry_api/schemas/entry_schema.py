@@ -46,7 +46,7 @@ class EntryDeleteSchema(BaseModel):
     """Define how the default response for delete entry
     """
     
-    mesage: str
+    msg: str
     entryID: str
 
 
@@ -57,6 +57,23 @@ class EntryUpdateSchema(BaseModel):
     entryID: str
     mesage: str
     
+
+
+def show_delete_operation(data_to_delete: str):
+    """Return delete response
+
+    Args:
+        data_to_delete (str): name of data to presente in error message
+        table_name (str): name of Table to presente in error message
+    Returns:
+        EntryDeleteSchema: Default Entry db schema
+    """
+
+    return {
+        'msg': 'The record has been deleted succefull in database',
+        'entryID': data_to_delete
+    }, 200
+
 
 def get_all_entrys(entrys: List[Entry]):
     """Return all entrys register in database.
@@ -85,6 +102,7 @@ def show_entry(entry: Entry):
     """
         Show the entry information
     """
+    
     return {
         'entryID': entry.entryID,
         'title': entry.title,

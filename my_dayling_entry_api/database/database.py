@@ -245,10 +245,11 @@ class EntryDatabase(Database):
         Returns:
             Entry: Try return the record entry in database
         """
+        
         entry_data = self.session.query(Entry).filter(Entry.entryID == entry_id).first()
         
         if entry_data:
-            return show_entry(entry_data), 200
+            return show_entry(entry_data)
         else:
             return {'message': 'Entry not found in database brow.'}, 404
         
@@ -299,11 +300,11 @@ class EntryDatabase(Database):
         
         if result:
             
-            return {'mesage': f'Entry note {entry_id} has beem deleted from the base.'}, 200
+            return show_delete_operation(entry_id)
         
         else:
             
-            return {'mesage': 'Entry note not found in database'}, 404
+            return delete_error(entry_id, self.ENTRY_TABEL_NAME)
     
     
     def update_record(self, new_title: str, new_content: str, entry_id: str) -> object:
@@ -330,7 +331,5 @@ class EntryDatabase(Database):
             return {'mesage': 'Entry note not found in database'}, 404
         
                 
-        
-    
     def __str__(self) -> str:
         return super().__str__()
