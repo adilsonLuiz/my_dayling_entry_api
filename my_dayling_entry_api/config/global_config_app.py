@@ -43,12 +43,16 @@ class GlobalApplicationConfigure(GlobalEntryDatabaseConfiguration):
         self.INFO_INFORMATION_API = Info(title='My Entry Dayling API', version=self.API_VERSION)
         
         
+        # Application behavior
+        
+        self.AUTO_DELETE_DB_AFTER_CLOSE_FLASK = False
+        
+        
     def __str__(self) -> str:
         return f'''\nENVIROMENT NAME: {self.ENVIROMENT}
 CONFIGURATION SET: {self.CONFIGURATION_ENVIROMENTE_NAME}
 DEBUG IS ENABLE: {self.DEBUG}
                 '''
-
 
 
 class DevelopementConfiguration(GlobalApplicationConfigure):
@@ -58,6 +62,7 @@ class DevelopementConfiguration(GlobalApplicationConfigure):
         super().__init__()
         self.CONFIGURATION_ENVIROMENTE_NAME = 'Developement'
         self.DEBUG = True
+        self.AUTO_DELETE_DB_AFTER_CLOSE_FLASK = True
 
     def __str__(self) -> str:
         return super().__str__()

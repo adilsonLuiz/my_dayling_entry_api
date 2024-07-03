@@ -79,6 +79,10 @@ class Database(DevelopementConfiguration):
         raise NotImplemented('Needs Implement in Derived Class')
     
     
+    def close_connection(self):
+        raise NotImplemented('Needs Implement in Derived Class')
+    
+    
     def __str__(self) -> str:
         return f"""\n
         <------------- DATABASE DEBUG ------------->
@@ -330,6 +334,6 @@ class EntryDatabase(Database):
         else:
             return {'mesage': 'Entry note not found in database'}, 404
         
-                
+    
     def __str__(self) -> str:
         return super().__str__()

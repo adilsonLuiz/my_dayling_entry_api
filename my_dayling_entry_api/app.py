@@ -1,5 +1,6 @@
 
 from flask import redirect
+import signal
 
 # Import instance of main database to make operations..
 from database import ENTRY_DB_CONNECTION
@@ -11,6 +12,7 @@ from model import Entry
 from config.logger import logger
 from flask_openapi3 import OpenAPI
 from flask_cors import CORS
+import os
 
 
 
@@ -22,6 +24,22 @@ CORS(app) # Apply CORS settings in app.
 
 # Sett debug application based on global settings
 app.config['DEBUG'] = APP_GLOBAL_CONFIG.DEBUG
+
+
+# Signals control application
+
+def close_server_checkups(signal, frame):
+    """ Exit message to terminal
+    """
+    print('-----Obrigado por usar o My Dayling Application------')
+    exit(0)
+
+# Signal to CRTL + C exit the program
+signal.signal(signal.SIGINT, close_server_checkups)
+
+
+
+
 
     
 ### APP ROUTES ###
