@@ -25,12 +25,8 @@ class Database(DevelopementConfiguration):
         # Attributes
         self.database_needs_populate = False
         self.database_have_any_data = False
-        self.TOTAL_DATABASE_RECORD = 0
         
-    def insert_record(self, data: object):
-        raise NotImplemented('Needs Implement in Derived Class')
-        
-        
+    
     def check_database_is_empty(self):
         raise NotImplemented('Needs Implement in Derived Class')
     
@@ -59,7 +55,7 @@ class Database(DevelopementConfiguration):
         raise NotImplemented('Needs Implement in Derived Class')
 
 
-    def is_record_contain_string(self, contain_word: str, table_model: object):
+    def record_contain_string(self, contain_word: str, table_model: object):
         raise NotImplemented('Needs Implement in Derived Class')
     
     
@@ -67,7 +63,7 @@ class Database(DevelopementConfiguration):
         raise NotImplemented('Needs Implement in Derived Class')
     
     
-    def get_all_records(self, table_model: object):
+    def get_all_data(self, table_model: object):
         return NotImplemented('Needs Implement in derived Class')
     
     
@@ -78,10 +74,7 @@ class Database(DevelopementConfiguration):
     def delete_record(self, table_model: object, record: object):
         raise NotImplemented('Needs Implement in Derived Class')
     
-    def close_connection(self, session: sessionmaker):
-        raise NotImplemented('Needs Implement in Derived Class')
-        
-        
+    
     def __str__(self) -> str:
         return f"""\n
         <------------- DATABASE DEBUG ------------->
@@ -91,13 +84,12 @@ class Database(DevelopementConfiguration):
         """
         
 
-# EntryDB database operations
 class EntryDatabase(Database):
     """
         Entry Database management
         Derivate class from Database, to concentre management in Entry Database
     """
-    #TODO check return erros from database opartion and refactori this class any possible
+
     
     def __init__(self):
         
@@ -105,10 +97,10 @@ class EntryDatabase(Database):
         logger.debug('Entry Database Instanciate')
         
         # Frist create engine
-        self.engine = create_engine(self.SQLALCHEMY_DATABASE_URI)
+        self.engine = create_engine(self.DATABASE_ENTRY_URI)
 
-        if not os.path.exists(self.DB_PATH):
-            os.makedirs(self.DB_PATH)
+        if not os.path.exists(self.ROOT_DB_PATH):
+            os.makedirs(self.ROOT_DB_PATH)
 
         # Check if database exist
         if not database_exists(self.engine.url):
@@ -129,25 +121,6 @@ class EntryDatabase(Database):
         
 
         self.database_have_any_data = self.have_any_record(Entry)
-        self.TOTAL_DATABASE_RECORD = self.session.query(Entry).count()
-        
-        
-    def insert_record(self, data: Entry):
-        """Insert new Record in database
-
-        Args:
-            data (Entry): Entry Object model to insert in table
-        """
-        
-        try: # Try conect with the database and insert new Entry
-            self.session.add(data)
-            self.session.commit()
-            logger.debug(f'New entry ID {data.entryID} insert sucessfull.')
-            return show_entry(data), 200
-        except Exception as err:
-            logger.debug(f'An error is occurred while trying insert new EntryID in dattabase...')
-            return {'message': err}, 404
-        
         
         
     def populate_database(self):
@@ -159,7 +132,7 @@ class EntryDatabase(Database):
         for recordIndex in range(0, self.INITAL_DATA_TO_POPULATE_DATABASE + 1):
             
             # Generate temp entry ID linke DAY0001 to put in EntryID field in table
-            temp_entry_id = self.PREFIX_TO_ID_GENERATE + str(recordIndex).zfill(self.DIGIT_TO_ID_GENERATE)
+            temp_entry_id = self.PRE_FIX_TO_ID_GENERATE + str(recordIndex).zfill(self.DIGIT_TO_ID_GENERATE)
             
             record = Entry(
                 entryID= temp_entry_id,
@@ -212,21 +185,19 @@ class EntryDatabase(Database):
             return record_not_found_error()
     
 
-    def is_record_contain_string(self, contain_word: str, table_model: Entry, field_to_search: str):
-        """If record cointain any character in parameter contain_word, return True
-
-        Args:
-            contain_word (str): Any string like search
-            table_model (Entry): Object with the table model
-            field_to_search (str): field in Table model to search data
-
-        Returns:
-            bool True if found any record with the PREFIX
-            bool: False if not found any record with the PREFIX
+    def record_contain_string(self, contain_word: str, table_model: Entry, field: str):
         """
-        try: # Trying make a query to search the word
+         If record cointain any character in parameter contain_word, return True
+         
+         @parameters:
+            contain_word: Any string like search
+            table_model: Object with the table model
+            field: field in Table model to search data
+        """
+        
+        try: # Trying make a query to search the word getattr(Entry, field)
             self.session.query(table_model).filter(
-                                getattr(table_model, field_to_search).like(f'%{contain_word}%'))
+                                getattr(table_model, field).like(f'%{contain_word}%'))
             
             return True
         except MultipleResultsFound: # If found one o more return True
@@ -254,35 +225,33 @@ class EntryDatabase(Database):
         
     
     def get_next_entry_id(self):
-        """Get new entry ID incremented
-
-        Returns:
-            PREFIX INCREMENTED (DAY00001 for Example): str
-            ErrorOperations 404: Object
         """
+            Get new entry ID incremented
+        """
+        #FIXME não ta claro o retorno da função, se é um erro ou se é o PREFIX ID
         
-        have_record_with_prefix = self.is_record_contain_string(self.PREFIX_TO_ID_GENERATE, Entry, 'entryID')
         
+        have_record_with_prefix = self.record_contain_string(self.PRE_FIX_TO_ID_GENERATE, Entry, 'entryID')
         
-        # If have any data in database entry and have any record with the self.PRE_FIX_TO_ID_GENERATE in db, enter here..
+        print('Have any record with this prefix: ' + str(have_record_with_prefix))
+        
         if self.database_have_any_data and have_record_with_prefix:
             
-            query_result = self.get_last_entry() # Get lest entry db
-            last_entry_id = query_result.entryID # Extract entryID from the last record found
-            number_entry = last_entry_id.split(self.PREFIX_TO_ID_GENERATE)[1] # Get the number PREFIX, to increment one
-            new_increment_valuer = str(int(number_entry) + 1).zfill(len(number_entry)) # New valuer incremented
-            return show_entry_id(self.PREFIX_TO_ID_GENERATE + new_increment_valuer)
+            query_result = self.get_last_entry()
+            
+            last_entry_id = query_result.entryID
+            number_entry = last_entry_id.split(self.PRE_FIX_TO_ID_GENERATE)[1]
+            new_increment_valuer = str(int(number_entry) + 1).zfill(len(number_entry))
+            
+            return self.PRE_FIX_TO_ID_GENERATE + new_increment_valuer
         
         elif not have_record_with_prefix: # If have data in database, but not exist an record with this PREFIX, so need create 
-            
-            return prefix_not_found_in_database_error()
-        
+            return prefix_not_found_in_database()
         else:
-            
             return record_not_found_error()
-        
-
-    def get_all_records(self):
+            
+    
+    def get_all_data(self):
         """Get all data in database
         """
         entrys = self.session.query(Entry).all()
@@ -295,14 +264,6 @@ class EntryDatabase(Database):
         
     
     def delete_record(self, entry_id: str):
-        """Delete entry record from the database
-
-        Args:
-            entry_id (str): EntryID data to delete
-
-        Returns:
-            Object: With sucess 200 or Failure 404
-        """
         
         result = self.session.query(Entry).filter(Entry.entryID == entry_id).delete()
         self.session.commit()
@@ -325,7 +286,7 @@ class EntryDatabase(Database):
             entry_id (str): Entry id to make query
 
         Returns:
-            Response: Object
+            _type_: Object
         """
         result = self.session.query(Entry).filter(Entry.entryID == entry_id).first()
         
@@ -339,14 +300,8 @@ class EntryDatabase(Database):
         else:
             return {'mesage': 'Entry note not found in database'}, 404
         
-        
-    def close_connection(self):
-        """Close the session database
-        """
-        self.session.close()
-          
                 
+        
+    
     def __str__(self) -> str:
-        return super().__str__() + \
-        f'''ENTRY DB HAVE ANY RECORD: {self.database_have_any_data}
-        '''
+        return super().__str__()
