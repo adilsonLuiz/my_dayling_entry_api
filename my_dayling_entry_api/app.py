@@ -36,12 +36,11 @@ def home():
 
 
 @app.post('/new_entry', tags=[APP_GLOBAL_CONFIG.TAG_ADD_NEW_ENTRY],
-          responses={'200':EntrySchema, '409': ErrorSchema, '400': ErrorSchema}
+          responses={'200':EntrySchema, '404': ErrorSchema}
         )
 def new_entry(form: EntrySchema):
     """Add new Entry to database
     """
-    #TODO migrate the commit to function inside database class
     
     #Build new product
     new_entry = Entry(
@@ -50,19 +49,9 @@ def new_entry(form: EntrySchema):
         content=form.content
         )
 
-    logger.debug(f'Adding new Entry to DB..')
-
-    try: # Try conect with the database and insert new Entry
-
-        ENTRY_DB_CONNECTION.session.add(new_entry)
-        ENTRY_DB_CONNECTION.session.commit()
-        logger.debug('New Entry add sucessfull!')
-        # Call my schema to show the entry
-        return show_entry(new_entry), 200
-
-    except Exception as err:
-            logger.warning(f'An error is occurrend durant insert..')
-            return {'mesage': err}
+    result = ENTRY_DB_CONNECTION.insert_new_data(new_entry)
+    
+    return result
 
 
 @app.get('/generate_new_entry_id', tags=[APP_GLOBAL_CONFIG.TAG_GET_ID_TO_NEW_ENTRY], 

@@ -27,6 +27,10 @@ class Database(DevelopementConfiguration):
         self.database_have_any_data = False
         
     
+    def insert_new_data(self, new_data: object):
+        raise NotImplemented('Needs Implement in Derived Class')
+    
+    
     def check_database_is_empty(self):
         raise NotImplemented('Needs Implement in Derived Class')
     
@@ -122,7 +126,32 @@ class EntryDatabase(Database):
 
         self.database_have_any_data = self.have_any_record(Entry)
         
+    
+    def insert_new_data(self, new_data: Entry):
+        """Insert new data in database entry
+
+        Args:
+            table_model (Entry): _description_
+
+        Returns:
+            _type_: _description_
+        """
         
+        logger.debug(f'Adding new Entry to DB..')
+
+        try: # Try conect with the database and insert new Entry
+
+            self.session.add(new_data)
+            self.session.commit()
+            logger.debug('New Entry add sucessfull!')
+            # Call my schema to show the entry
+            return show_entry(new_data)
+
+        except Exception as err:
+                logger.warning(f'An error is occurrend durant insert..')
+                return {'mesage': err}, 404
+    
+    
     def populate_database(self):
         
         """

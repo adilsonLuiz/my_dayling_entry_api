@@ -89,7 +89,7 @@ def show_entry(entry: Entry):
         'entryID': entry.entryID,
         'title': entry.title,
         'content': entry.content
-    }
+    }, 200
 
 
 def show_entry_id(new_id: str):
