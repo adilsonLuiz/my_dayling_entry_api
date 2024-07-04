@@ -12,7 +12,7 @@ class GlobalDatabaseConfiguration():
         
         self.SQLALCHEMY_TRACK_MODIFICATIONS = False
         self.ROOT_DB_PATH = 'db/'
-        self.INITAL_DATA_TO_POPULATE_DATABASE = 2
+        self.INITAL_DATA_TO_POPULATE_DATABASE = 20 # Valuer to populate DB with records automatic
         self.INITAL_DATABASE_CHARGE = True
 
 

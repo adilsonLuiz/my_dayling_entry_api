@@ -37,10 +37,6 @@ def close_server_checkups(signal, frame):
 # Signal to CRTL + C exit the program
 signal.signal(signal.SIGINT, close_server_checkups)
 
-
-
-
-
     
 ### APP ROUTES ###
 
@@ -81,16 +77,12 @@ def generate_new_entry_id():
     Returns:
         str: Object
     """
-    #FIXME não consigo saber se o retorno é o conteudo 200 ou nao
 
-    new_entry_id = ENTRY_DB_CONNECTION.get_next_entry_id()
 
-    if new_entry_id:
-        print('Retornando 200 generate new entry')
-        return show_entry_id(new_entry_id)
-    else:
-        print('Retornando 400 generate new entry')
-        return 'error', 400
+    result = ENTRY_DB_CONNECTION.get_next_entry_id()
+
+    return result
+    
 
 
 @app.get('/entrys', tags=[APP_GLOBAL_CONFIG.TAG_GET_ENTRYS],

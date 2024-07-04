@@ -262,25 +262,25 @@ class EntryDatabase(Database):
         """
             Get new entry ID incremented
         """
-        #FIXME não ta claro o retorno da função, se é um erro ou se é o PREFIX ID
         
         
-        have_record_with_prefix = self.record_contain_string(self.PRE_FIX_TO_ID_GENERATE, Entry, 'entryID')
+        # Check if have any record in entry db with this PREFIX setting in database
+        have_record_with_prefix_exist = self.record_contain_string(self.PRE_FIX_TO_ID_GENERATE, Entry, 'entryID')
         
-        print('Have any record with this prefix: ' + str(have_record_with_prefix))
         
-        if self.database_have_any_data and have_record_with_prefix:
+        if self.database_have_any_data and have_record_with_prefix_exist:
             
-            query_result = self.get_last_entry()
+            query_result = self.get_last_entry() # IF the prefix exist, get the last record with this prefix
             
             last_entry_id = query_result.entryID
-            number_entry = last_entry_id.split(self.PRE_FIX_TO_ID_GENERATE)[1]
-            new_increment_valuer = str(int(number_entry) + 1).zfill(len(number_entry))
+            number_entry = last_entry_id.split(self.PRE_FIX_TO_ID_GENERATE)[1] # Split the PREFIX to digit to sum number
+            new_increment_valuer = str(int(number_entry) + 1).zfill(len(number_entry)) # Increment 1 unity and fill with 0 digits
             
-            return self.PRE_FIX_TO_ID_GENERATE + new_increment_valuer
+            return show_new_entry_id_prefix(self.PRE_FIX_TO_ID_GENERATE + new_increment_valuer)
         
-        elif not have_record_with_prefix: # If have data in database, but not exist an record with this PREFIX, so need create 
+        elif not have_record_with_prefix_exist: # If have data in database, but not exist an record with this PREFIX, so need create 
             return prefix_not_found_in_database()
+        
         else:
             return record_not_found_error()
             
@@ -292,9 +292,9 @@ class EntryDatabase(Database):
         
         
         if entrys: # If exist products in database
-            return get_all_entrys(entrys), 200
+            return get_all_entrys(entrys)
         else:
-            return database_empty_error(), 404
+            return database_empty_error()
         
     
     def delete_record(self, entry_id: str):

@@ -95,7 +95,7 @@ def get_all_entrys(entrys: List[Entry]):
 
         })
 
-    return {'entrys': result}
+    return {'entrys': result}, 200
 
 
 def show_entry(entry: Entry):
@@ -110,8 +110,15 @@ def show_entry(entry: Entry):
     }, 200
 
 
-def show_entry_id(new_id: str):
-    
-    return jsonify({
-                    'entryID': new_id
-                    })
+def show_new_entry_id_prefix(new_id: str):
+    """Return the new entryID response
+
+    Args:
+        new_id (str): new entryID to return
+
+    Returns:
+        _type_: _description_
+    """
+    return {
+            'entryID': new_id
+    }, 200
