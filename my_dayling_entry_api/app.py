@@ -49,7 +49,7 @@ def home():
     return redirect('/openapi')
 
 
-@app.post('/new_entry', tags=[APP_GLOBAL_CONFIG.TAG_ADD_NEW_ENTRY],
+@app.post('/new_entry', tags=[APP_GLOBAL_CONFIG.TAG_ENTRYS_OPERATION],
           responses={'200':EntrySchema, '404': ErrorSchema}
         )
 def new_entry(form: EntrySchema):
@@ -68,7 +68,7 @@ def new_entry(form: EntrySchema):
     return result
 
 
-@app.get('/generate_new_entry_id', tags=[APP_GLOBAL_CONFIG.TAG_GET_ID_TO_NEW_ENTRY], 
+@app.get('/generate_new_entry_id', tags=[APP_GLOBAL_CONFIG.TAG_ENTRYS_OPERATION], 
           responses={'200': GetNewIDToEntrySchema, '400': ErrorSchema}
           )
 def generate_new_entry_id():
@@ -85,7 +85,7 @@ def generate_new_entry_id():
     
 
 
-@app.get('/entrys', tags=[APP_GLOBAL_CONFIG.TAG_GET_ENTRYS],
+@app.get('/entrys', tags=[APP_GLOBAL_CONFIG.TAG_ENTRYS_OPERATION],
          responses={'200': ListingEntrysSchema, '404': ErrorSchema})
 def get_all_entrys():
     """Get all entrys in database and return it
@@ -96,7 +96,7 @@ def get_all_entrys():
     return result
 
 
-@app.get('/entry', tags=[APP_GLOBAL_CONFIG.TAG_ENTRY_SEARCH],
+@app.get('/entry', tags=[APP_GLOBAL_CONFIG.TAG_ENTRYS_OPERATION],
          responses={'200': EntrySearchSchema, '404': ErrorSchema})
 def get_entry(query: EntrySearchSchema):
     """Get unique entryID in database
@@ -117,7 +117,7 @@ def get_entry(query: EntrySearchSchema):
     return result
     
     
-@app.delete('/entry', tags=[APP_GLOBAL_CONFIG.TAG_ENTRY_DELETE],
+@app.delete('/entry', tags=[APP_GLOBAL_CONFIG.TAG_ENTRYS_OPERATION],
          responses={'200': EntryDeleteSchema, '404': DeleteErrorSchema})
 def delete_entry(query: EntrySearchSchema):
     """Delete record in entry db
@@ -130,10 +130,18 @@ def delete_entry(query: EntrySearchSchema):
     return result
 
 
-@app.put('/entry', tags=[APP_GLOBAL_CONFIG.TAG_ENTRY_UPDATE],
+@app.put('/entry', tags=[APP_GLOBAL_CONFIG.TAG_ENTRYS_OPERATION],
          responses={'200': EntryUpdateSchema, '404': ErrorSchema})
 def update_entry(query: EntrySearchSchema, form:EntrySchema):
-    
+    """Updata Entry note with new informations
+
+    Args:
+        query (EntrySearchSchema): Comming To Client request
+        form (EntrySchema): Comming to Client Request
+
+    Returns:
+        _type_: _description_
+    """
     result = ENTRY_DB_CONNECTION.update_record(form.title, form.content, query.entryID)
     
     return result
