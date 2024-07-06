@@ -1,6 +1,7 @@
 # My Dayling Entry API
 
-Minha API criada com algunas funcionalidades para consulta de notas diarias
+API desenvolvida para, criação, manipulação de notas de entrada diaria de texto corrido.
+Prove funções que manupulam notas, seus titulos, conteudo, e realiza operações direto no banco de dados.
 
 ---
 ## Como executar 
