@@ -1,17 +1,18 @@
 from logging.config import dictConfig
 import logging
 import os
+from config import APP_GLOBAL_CONFIG
 
 
-LOG_PATH = 'log/'
+
 
 
 
 # If log path not exist, create this
-if not os.path.exists(LOG_PATH):
-    os.makedirs(LOG_PATH)
+if not os.path.exists(APP_GLOBAL_CONFIG.LOG_ROOT_PATH):
+    os.makedirs(APP_GLOBAL_CONFIG.LOG_ROOT_PATH)
 
-
+# Log configuratons
 dictConfig({
 
     "version": 1,

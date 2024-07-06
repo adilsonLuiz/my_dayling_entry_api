@@ -12,7 +12,7 @@ from model import Entry
 from config.logger import logger
 from flask_openapi3 import OpenAPI
 from flask_cors import CORS
-import os
+
 
 
 
@@ -29,9 +29,10 @@ app.config['DEBUG'] = APP_GLOBAL_CONFIG.DEBUG
 # Signals control application
 
 def close_server_checkups(signal, frame):
-    """ Exit message to terminal
+    """ Interact with the CRTL + C Signal output from keyboard.
     """
-    print('-----Obrigado por usar o My Dayling Application------')
+    print('-----Thanks for test it -----')
+    print('---Sorry for any problems and bugs :/')
     exit(0)
 
 # Signal to CRTL + C exit the program

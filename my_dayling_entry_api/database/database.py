@@ -12,7 +12,7 @@ import os
 
 # Database configuration
 class Database(DevelopementConfiguration):
-    """_summary_
+    """Baseclass to help abstract methods about Database operation, This class serves only as a template for other derived classes to implement its methods
 
     Args:
         DevelopementConfiguration Herance: Herance from this class
@@ -95,12 +95,15 @@ class Database(DevelopementConfiguration):
 class EntryDatabase(Database):
     """
         Entry Database management
-        Derivate class from Database, to concentre management in Entry Database
+        Derivate class from Database, to concentre management in Entry Database.
+        Here we concentrate all the operations necessary for handling operations with db entry.
+        Any examples .. Manage the session with the bank, how the bank will behave when instantiated, whether it will populate automatically, what it can do, etc...
     """
 
     
     def __init__(self):
-        
+        """The most part of behivor of the entry db is sett in this constructor method
+        """
         super().__init__()
         logger.debug('Entry Database Instanciate')
         
@@ -135,10 +138,10 @@ class EntryDatabase(Database):
         """Insert new data in database entry
 
         Args:
-            table_model (Entry): _description_
+            table_model (Entry): Model table to insert data
 
         Returns:
-            _type_: _description_
+            Dict: Response schema with error or success
         """
         
         logger.debug(f'Adding new Entry to DB..')
@@ -148,6 +151,7 @@ class EntryDatabase(Database):
             self.session.add(new_data)
             self.session.commit()
             logger.debug('New Entry add sucessfull!')
+            
             # Call my schema to show the entry
             return show_entry(new_data)
 

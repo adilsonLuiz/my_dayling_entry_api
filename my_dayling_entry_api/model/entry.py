@@ -13,7 +13,7 @@ class Entry(Base):
     """
         This class is model to create a new Entry model to insert in table
     """
-    #__tablename__ = get_app_config('TABEL_NAME')
+
     __tablename__ = APP_GLOBAL_CONFIG.ENTRY_TABEL_NAME
 
 

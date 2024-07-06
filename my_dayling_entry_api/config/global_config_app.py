@@ -41,6 +41,7 @@ class GlobalApplicationConfigure(GlobalEntryDatabaseConfiguration):
         # Application behavior
         
         self.AUTO_DELETE_DB_AFTER_CLOSE_FLASK = False
+        self.LOG_ROOT_PATH = 'log/'
         
         
     def __str__(self) -> str:

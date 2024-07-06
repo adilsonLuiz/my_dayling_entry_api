@@ -1,10 +1,9 @@
 # My Dayling Entry API
 
-Minha API criada com algunas funcionalidades para consulta de notas diarias
+API desenvolvida para, criação, manipulação de notas de entrada diaria de texto corrido.
+Prove funções que manupulam notas, seus titulos, conteudo, e realiza operações direto no banco de dados.
 
----
 ## Como executar 
-
 
 Será necessário ter todas as libs python listadas no `requirements.txt` instaladas.
 Após clonar o repositório, é necessário ir ao diretório raiz, pelo terminal, para poder executar os comandos descritos abaixo.
@@ -31,3 +30,5 @@ automaticamente após uma mudança no código fonte.
 ```
 
 Abra o [http://localhost:5000/#/](http://localhost:5000/#/) no navegador para verificar o status da API em execução.
+
+## OBS: Para mais informações de navegação sobre o codigo fonte consulte o arquivo Help-me-understand.md

@@ -1,5 +1,5 @@
 # Database interface module
-from database.database import Database, EntryDatabase
+from database.database import EntryDatabase
 
 
 
