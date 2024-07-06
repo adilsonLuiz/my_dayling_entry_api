@@ -1,10 +1,10 @@
 ## ABOUT MODULES
 
 
-### config dir - This module was designed to contain and concentrate all application settings
-### database dir - This module was designed to contain configurations relevant to the database
-### model dir - Standard module for application models
-### schemas dir - Standard module for application schemas
+#### config dir - This module was designed to contain and concentrate all application settings
+#### database dir - This module was designed to contain configurations relevant to the database
+#### model dir - Standard module for application models
+#### schemas dir - Standard module for application schemas
 
 
 ## Behaviors you might like to try
