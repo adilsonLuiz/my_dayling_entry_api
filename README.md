@@ -36,3 +36,5 @@ automaticamente após uma mudança no código fonte.
 ```
 
 Abra o [http://localhost:5000/#/](http://localhost:5000/#/) no navegador para verificar o status da API em execução.
+
+## OBS: Para mais informações de navegação sobre o codigo fonte consulte o arquivo Help-me-understand.md dentro do diretorio raiz do projeto
