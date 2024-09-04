@@ -1,6 +1,7 @@
 
 from flask import redirect
 import signal
+import requests
 
 # Import instance of main database to make operations..
 from database import ENTRY_DB_CONNECTION
@@ -146,6 +147,19 @@ def update_entry(query: EntrySearchSchema, form:EntrySchema):
     result = ENTRY_DB_CONNECTION.update_record(form.title, form.content, query.entryID)
     
     return result
+
+
+@app.get('/timezone', tags=[APP_GLOBAL_CONFIG.TAG_ENTRYS_OPERATION],
+         responses={'200': TimeZoneInformationByIP, '404': ErrorSchema})
+def get_timezone():
+    
+    response = requests.get(APP_GLOBAL_CONFIG.TIMEZONE_URL_API)
+
+    return {
+        'time_zone': response.json()
+    }, 200
+
+
 
 
 @app.get('/about', tags=[APP_GLOBAL_CONFIG.TAG_ABOUT_APPLICATION],

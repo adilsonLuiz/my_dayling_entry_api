@@ -28,6 +28,8 @@ class GlobalApplicationConfigure(GlobalEntryDatabaseConfiguration):
         
         self.ENVIROMENT = 'DEV' # Chose theese DEV-> Develoment, HM -> Homologation, PROD -> Production
 
+        self.TIMEZONE_URL_API = 'https://worldtimeapi.org/api/ip'
+
 
         # Swagger DOC Configuration TAGS
         self.HOME_TAG = Tag(name='Documentation', description='Basic functions')

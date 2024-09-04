@@ -14,4 +14,4 @@ from schemas.entry_schema import show_entry, show_new_entry_id_prefix, get_all_e
 
 
 # CLASSES APPLICATION SCHEMA
-from schemas.application_schema import AboutInformationSchema
+from schemas.application_schema import AboutInformationSchema, TimeZoneInformationByIP

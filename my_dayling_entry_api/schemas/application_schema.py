@@ -10,3 +10,11 @@ class AboutInformationSchema(BaseModel):
     """define how about Information is defined
     """
     api_version: str = APP_GLOBAL_CONFIG.API_VERSION
+
+
+
+class TimeZoneInformationByIP(BaseModel):
+    """ Define how time zone information comming
+    """
+
+    time_zone: dict
