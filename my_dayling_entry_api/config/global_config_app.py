@@ -22,7 +22,7 @@ class GlobalApplicationConfigure(GlobalEntryDatabaseConfiguration):
         self.CONFIGURATION_ENVIROMENTE_NAME = 'Global Configuration'
 
         # API Configuration
-        self.API_VERSION = '0.0.2'
+        self.API_VERSION = '0.0.3'
         
         # Set enviroment of Flask application Running
         

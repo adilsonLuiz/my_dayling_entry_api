@@ -160,14 +160,18 @@ def get_timezone():
     }, 200
 
 
-
-
 @app.get('/about', tags=[APP_GLOBAL_CONFIG.TAG_ABOUT_APPLICATION],
          responses={'200': AboutInformationSchema, '404': ErrorSchema})
 def get_about_information():
     """Get about information from application
     """
     
+    
+    # Call External API to get timezone
+    time_zone = requests.get(APP_GLOBAL_CONFIG.TIMEZONE_URL_API).json()
+
+    
     return {
-        'api_version': APP_GLOBAL_CONFIG.API_VERSION
+        'api_version': APP_GLOBAL_CONFIG.API_VERSION,
+        'time_zone': time_zone['datetime'],
     }, 200
