@@ -28,7 +28,7 @@ class GlobalApplicationConfigure(GlobalEntryDatabaseConfiguration):
         
         self.ENVIROMENT = 'DEV' # Chose theese DEV-> Develoment, HM -> Homologation, PROD -> Production
 
-        self.TIMEZONE_URL_API = 'https://worldtimeapi.org/api/ip'
+        self.TIMEZONE_URL_API = 'https://timeapi.io/api/time/current/ip?ipAddress=35.199.77.203'
 
 
         # Swagger DOC Configuration TAGS

@@ -4,6 +4,16 @@ API desenvolvida para, criação, manipulação de notas de entrada diaria de te
 Prove funções que manupulam notas, seus titulos, conteudo, e realiza operações direto no banco de dados.
 
 ---
+
+
+# API Time Zone External
+Segue a API externa utilizada para o projeto
+
+https://timeapi.io/swagger/index.html
+
+A API possui documentação no swagger pronto para testes.
+
+
 ## Como executar 
 
 Primeiro baixar o arquivo via repositorio central, ou com o git instalado em seu computador executar o seguinte comando abaixo.

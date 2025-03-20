@@ -173,5 +173,5 @@ def get_about_information():
     
     return {
         'api_version': APP_GLOBAL_CONFIG.API_VERSION,
-        'time_zone': time_zone['datetime'],
+        'time_zone': time_zone['dateTime'],
     }, 200

@@ -8,3 +8,4 @@ SQLAlchemy
 SQLAlchemy-Utils
 typing_extensions
 requests
+flask-openapi3[swagger]
